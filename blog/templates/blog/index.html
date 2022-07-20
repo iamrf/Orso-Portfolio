@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% load jalali_tags %}
+
+{% block title %}
+وبلاگ
+{% endblock title %}
+
+{% block content %}
+    {% for post in posts %}
+        <h2>
+            <a href="{% url 'blog:detail' post.slug %}">{{ post.title }}</a>
+        </h2>
+        {{ post.updated |to_jalali }} <br>
+        {% autoescape off %}
+        {{ post.content }}
+        {% endautoescape %}
+    {% endfor %}
+{% endblock content %}
