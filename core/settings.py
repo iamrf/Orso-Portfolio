@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 import locale
+from django.core.management import utils
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(5w(y(7(kc$cix7)#hfc-mj-^3j(u9k!s(30ppg+s=a)g5vf56'
+# SECRET_KEY = 'django-insecure-(5w(y(7(kc$cix7)#hfc-mj-^3j(u9k!s(30ppg+s=a)g5vf56'
+
+# Set Secret key rendom generator
+SECRET_KEY = utils.get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
