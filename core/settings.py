@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
 
     # local
-    'media.apps.MediaConfig',
     'blog.apps.BlogConfig',
     'portfolio.apps.PortfolioConfig',
 ]

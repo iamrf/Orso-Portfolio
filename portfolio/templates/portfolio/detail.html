@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+{{ portfolio.title }}
+{% endblock title %}
+
+{% block content %}
+    {% if portfolio and portfolio.is_active %}
+        <h2>
+            {{ portfolio.title }}
+        </h2>
+        {% for cat in portfolio.category.all %}
+            <span>{{ cat }}</span> &nbsp;
+        {% endfor %}
+        <br>
+        {% autoescape off %}
+        {{ portfolio.description }}
+        {% endautoescape %}
+        <hr>
+        {% if portfolio.images.all %}
+            {% for img in portfolio.images.all %}
+                <img src="{{ img.image.url }}" alt="{{ img.name }}" width="500px">
+            {% endfor %}
+        {% endif %}
+        <br>
+        
+    {% endif %}
+{% endblock content %}

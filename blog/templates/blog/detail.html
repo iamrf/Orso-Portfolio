@@ -12,5 +12,11 @@
         {% autoescape off %}
         {{ post.content }}
         {% endautoescape %}
+        <hr>
+        {% if post.images.all %}
+            {% for img in post.images.all %}
+                <img src="{{ img.image.url }}" alt="{{ img.name }}" width="500px">
+            {% endfor %}
+        {% endif %}
     {% endif %}
 {% endblock content %}

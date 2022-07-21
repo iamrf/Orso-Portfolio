@@ -11,4 +11,3 @@ class BlogDetailView(DetailView):
     context_object_name = 'post'    
     queryset = Post.objects.all()
     template_name = 'blog/detail.html'
-    slug_field = 'slug'

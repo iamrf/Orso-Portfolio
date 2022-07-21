@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import Category, Portfolio
+from .models import Category, Portfolio, Image, Video, File
 from jalali_date import datetime2jalali
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
@@ -13,9 +13,25 @@ class PortfolioForm(forms.ModelForm):
         }
         fields = '__all__'
 
+class ImageInline(admin.TabularInline):
+    model = Image
+    extra = 1
+    classes = ('collapse',)
+    
+class VideoInline(admin.TabularInline):
+    model = Video
+    extra = 1
+    classes = ('collapse',)
+    
+class FileInline(admin.TabularInline):
+    model = File
+    extra = 1
+    classes = ('collapse',)
+
 @admin.register(Portfolio)
 class PortfolioAdmin(admin.ModelAdmin):
     form = PortfolioForm
+    inlines = [ImageInline, VideoInline, FileInline]
     filter_horizontal = ['category']
     fieldsets = (
         ('عنوان',{
@@ -26,12 +42,6 @@ class PortfolioAdmin(admin.ModelAdmin):
         }),
         ('موضوع',{
             'fields' : ('category',)
-        }),
-        ('آلبوم تصاویر',{
-            'fields' : ('images',)
-        }),
-        ('آلبوم ویدیو ها',{
-            'fields' : ('videos',)
         }),
         ('فعال/ غیرفعال',{
             'fields' : ('is_active',)

@@ -8,11 +8,17 @@
 {% block content %}
     {% for post in posts %}
         <h2>
-            <a href="{% url 'blog:detail' post.slug %}">{{ post.title }}</a>
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
         </h2>
         {{ post.updated |to_jalali }} <br>
         {% autoescape off %}
         {{ post.content }}
         {% endautoescape %}
+        <hr>
+        {% if post.images.all %}
+            {% for img in post.images.all %}
+                <img src="{{ img.image.url }}" alt="{{ img.name }}" width="500px">
+            {% endfor %}
+        {% endif %}
     {% endfor %}
 {% endblock content %}

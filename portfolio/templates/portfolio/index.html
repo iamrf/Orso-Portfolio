@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+{% load jalali_tags %}
+
+{% block title %}
+پورتفوی
+{% endblock title %}
+
+{% block content %}
+    {% for portfolio in portfolios %}
+        {% if portfolio.is_active%}
+            <h2>
+                <a href="{{ portfolio.get_absolute_url }}">{{ portfolio.title }}</a>
+            </h2>
+            {{ portfolio.updated |to_jalali }} <br>
+            {% autoescape off %}
+            {{ portfolio.description }}
+            {% endautoescape %}
+            <hr>
+            {% if portfolio.images.all %}
+                {% for img in portfolio.images.all %}
+                    <img src="{{ img.image.url }}" alt="{{ img.name }}" width="500px">
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

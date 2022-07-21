@@ -18,7 +18,9 @@
         {% endblock styles %}
     </head>
     <body>
-        <a href="{% url 'blog:index' %}"> وبلاگ </a>
+        <a href="{% url 'blog:index' %}"> وبلاگ </a> |
+        <a href="{% url 'portfolio:index' %}"> پورتفوی </a>
+
         <hr>
         {% block content %}
         {% endblock content %}
