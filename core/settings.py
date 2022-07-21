@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # local
     'blog.apps.BlogConfig',
     'portfolio.apps.PortfolioConfig',
+    'landing.apps.LandingConfig',
 ]
 
 MIDDLEWARE = [

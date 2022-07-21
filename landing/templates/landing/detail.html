@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+{{ landing.title }}
+{% endblock title %}
+
+{% block content %}
+    {% if landing %}
+        <h2>
+            {{ landing.title }}
+        </h2>
+        {% autoescape off %}
+        {{ landing.content }}
+        {% endautoescape %}
+        <hr>
+        {% if landing.images.all %}
+            {% for img in landing.images.all %}
+                <img src="{{ img.image.url }}" alt="{{ img.name }}" width="500px">
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+{% endblock content %}

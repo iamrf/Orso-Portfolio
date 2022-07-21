@@ -1,13 +1,13 @@
 from django.contrib import admin
 from django import forms
-from .models import Tag, Post, Image, Video, File
+from .models import Landing, Image, Video, File
 from jalali_date import datetime2jalali
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 # Create a form for PostAdmin fields widgets
-class PostForm(forms.ModelForm):
+class LandingForm(forms.ModelForm):
     class Meta:
-        model = Post
+        model = Landing
         widgets = {
             'content' : CKEditorUploadingWidget(),
         }
@@ -28,20 +28,16 @@ class FileInline(admin.TabularInline):
     extra = 1
     classes = ('collapse',)
 
-@admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-    form = PostForm
+@admin.register(Landing)
+class LandingAdmin(admin.ModelAdmin):
+    form = LandingForm
     inlines = [ImageInline, VideoInline, FileInline]
-    filter_horizontal = ['tags']
     fieldsets = (
         ('عنوان',{
             'fields' : ('title', 'slug')
         }),
         ('محتوا',{
             'fields' : ('content',)
-        }),
-        ('تگ ها',{
-            'fields' : ('tags',)
         }),
         ('فعال/ غیرفعال',{
             'fields' : ('is_active',)
@@ -60,5 +56,3 @@ class PostAdmin(admin.ModelAdmin):
     get_updated.short_description = 'آخرین ویرایش'
     get_updated.admin_order_field = 'updated'
 
-
-admin.site.register(Tag)

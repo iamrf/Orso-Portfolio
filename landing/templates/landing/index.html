@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% load jalali_tags %}
+
+{% block title %}
+لندینگ ها
+{% endblock title %}
+
+{% block content %}
+    {% for landing in landings %}
+        <h2>
+            <a href="{{ landing.get_absolute_url }}">{{ landing.title }}</a>
+        </h2>
+        {{ landing.updated |to_jalali }} <br>
+        {% autoescape off %}
+        {{ landing.content }}
+        {% endautoescape %}
+        <hr>
+        {% if landing.images.all %}
+            {% for img in landing.images.all %}
+                <img src="{{ img.image.url }}" alt="{{ img.name }}" width="500px">
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endblock content %}
