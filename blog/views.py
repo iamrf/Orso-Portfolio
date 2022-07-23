@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from django.utils.translation import activate
+from requests import request
 from .models import Post
 
 class BlogListView(ListView):

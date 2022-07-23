@@ -49,8 +49,10 @@ INSTALLED_APPS = [
     'image_optimizer',
     'ckeditor',
     'ckeditor_uploader',
+    'translated_fields',
 
     # local
+    'home.apps.HomeConfig',
     'blog.apps.BlogConfig',
     'portfolio.apps.PortfolioConfig',
     'landing.apps.LandingConfig',
@@ -59,6 +61,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -120,8 +123,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-# LANGUAGE_CODE = 'en-us'
-LANGUAGE_CODE = 'fa-IR'
+LANGUAGES = [
+        ('fa', 'Persian'),
+        ('en', 'English'),
+]
+
+LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'fa-IR'
 locale.setlocale(locale.LC_ALL, "fa_IR.UTF-8")
 
 TIME_ZONE = 'Asia/Tehran'

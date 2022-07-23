@@ -1,8 +1,9 @@
-{% extends 'blog/base.html' %}
+{% extends 'home/base.html' %}
 {% load jalali_tags %}
+{% load i18n %}
 
 {% block title %}
-پورتفوی
+{% translate "portfolio" %}
 {% endblock title %}
 
 {% block content %}
@@ -11,7 +12,11 @@
             <h2>
                 <a href="{{ portfolio.get_absolute_url }}">{{ portfolio.title }}</a>
             </h2>
-            {{ portfolio.updated |to_jalali }} <br>
+            {% if LANGUAGE_CODE == 'fa' %}
+                {{ portfolio.updated |to_jalali }} <br>
+            {% else %}
+                {{ portfolio.updated }} <br>
+            {% endif %}
             {% autoescape off %}
             {{ portfolio.description }}
             {% endautoescape %}

@@ -3,13 +3,15 @@ from django import forms
 from .models import Tag, Post, Image, Video, File
 from jalali_date import datetime2jalali
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from django.utils.translation import gettext_lazy as _
 
 # Create a form for PostAdmin fields widgets
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         widgets = {
-            'content' : CKEditorUploadingWidget(),
+            'content_fa' : CKEditorUploadingWidget(),
+            'content_en' : CKEditorUploadingWidget(),
         }
         fields = '__all__'
 
@@ -34,16 +36,16 @@ class PostAdmin(admin.ModelAdmin):
     inlines = [ImageInline, VideoInline, FileInline]
     filter_horizontal = ['tags']
     fieldsets = (
-        ('عنوان',{
-            'fields' : ('title', 'slug')
+        (_('title'),{
+            'fields' : ('title_fa', 'title_en', 'slug')
         }),
-        ('محتوا',{
-            'fields' : ('content',)
+        (_('content'),{
+            'fields' : ('content_fa', 'content_en',)
         }),
-        ('تگ ها',{
+        (_('tags'),{
             'fields' : ('tags',)
         }),
-        ('فعال/ غیرفعال',{
+        (_('active / deactive'),{
             'fields' : ('is_active',)
         }),
     )
@@ -55,9 +57,9 @@ class PostAdmin(admin.ModelAdmin):
     def get_updated(self, obj):
         return datetime2jalali(obj.updated).strftime('%A %-d %B %Y ساعت %H:%M')
  
-    get_created.short_description = 'تاریخ ایجاد'
+    get_created.short_description = _('created')
     get_created.admin_order_field = 'created'
-    get_updated.short_description = 'آخرین ویرایش'
+    get_updated.short_description = _('updated')
     get_updated.admin_order_field = 'updated'
 
 

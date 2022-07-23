@@ -1,0 +1,108 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-23 21:05+0430\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: portfolio/admin.py:39 portfolio/models.py:35
+msgid "title"
+msgstr "عنوان"
+
+#: portfolio/admin.py:42 portfolio/models.py:37
+msgid "content"
+msgstr "محتوا"
+
+#: portfolio/admin.py:45 portfolio/models.py:18
+msgid "category"
+msgstr "موضوع"
+
+#: portfolio/admin.py:48
+msgid "active / deactive"
+msgstr "فعال / غیرفعال"
+
+#: portfolio/admin.py:60
+msgid "created"
+msgstr "ساخته شده"
+
+#: portfolio/admin.py:62
+msgid "updated"
+msgstr "آخرین بروزرسانی"
+
+#: portfolio/apps.py:7 portfolio/models.py:44
+#: portfolio/templates/portfolio/index.html:6
+msgid "portfolio"
+msgstr "پورتفوی"
+
+#: portfolio/models.py:12
+msgid "name"
+msgstr "نام"
+
+#: portfolio/models.py:13 portfolio/models.py:36
+msgid "link"
+msgstr "پیوند"
+
+#: portfolio/models.py:19 portfolio/models.py:38
+msgid "categories"
+msgstr "موضوعات"
+
+#: portfolio/models.py:39
+msgid "active"
+msgstr "فعال"
+
+#: portfolio/models.py:45
+msgid "portfolios"
+msgstr "پورتفوی ها"
+
+#: portfolio/models.py:74 portfolio/models.py:86 portfolio/models.py:95
+msgid "image"
+msgstr "تصویر"
+
+#: portfolio/models.py:78 portfolio/models.py:99 portfolio/models.py:115
+msgid "name or discription"
+msgstr "نام یا توضیحات"
+
+#: portfolio/models.py:79 portfolio/models.py:100 portfolio/models.py:116
+msgid "select file"
+msgstr "انتخاب فایل"
+
+#: portfolio/models.py:80 portfolio/models.py:101 portfolio/models.py:117
+msgid "default"
+msgstr "پیش فرض"
+
+#: portfolio/models.py:81 portfolio/models.py:102 portfolio/models.py:118
+msgid "target"
+msgstr "مقصد"
+
+#: portfolio/models.py:87
+msgid "images"
+msgstr "تصاویر"
+
+#: portfolio/models.py:107
+msgid "video"
+msgstr "ویدیو"
+
+#: portfolio/models.py:108
+msgid "videos"
+msgstr "ویدیو ها"
+
+#: portfolio/models.py:123
+msgid "file"
+msgstr "فایل"
+
+#: portfolio/models.py:124
+msgid "files"
+msgstr "فایل ها"

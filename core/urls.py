@@ -15,15 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.i18n import i18n_patterns
+from home.views import changeLang
+
+urlpatterns = [
+    path('chlang', changeLang, name='chlang'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+]
+
+urlpatterns += i18n_patterns(
+    path('admin/', admin.site.urls),
+    path('blog/', include('blog.urls')),
+    path('portfolio/', include('portfolio.urls')),
+    path('l/', include('landing.urls')),
+    path('', include('home.urls')),
+)
 
 # uploaded files for develop stage
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('blog/', include('blog.urls')),
-    path('portfolio/', include('portfolio.urls')),
-    path('l/', include('landing.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

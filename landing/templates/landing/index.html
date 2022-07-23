@@ -1,8 +1,9 @@
-{% extends 'blog/base.html' %}
+{% extends 'home/base.html' %}
 {% load jalali_tags %}
+{% load i18n %}
 
 {% block title %}
-لندینگ ها
+{% translate "landings" %}
 {% endblock title %}
 
 {% block content %}
@@ -10,7 +11,11 @@
         <h2>
             <a href="{{ landing.get_absolute_url }}">{{ landing.title }}</a>
         </h2>
-        {{ landing.updated |to_jalali }} <br>
+        {% if LANGUAGE_CODE == 'fa' %}
+            {{ landing.updated |to_jalali }} <br>
+        {% else %}
+            {{ landing.updated }} <br>
+        {% endif %}
         {% autoescape off %}
         {{ landing.content }}
         {% endautoescape %}

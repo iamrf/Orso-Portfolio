@@ -1,8 +1,10 @@
-{% extends 'blog/base.html' %}
+{% extends 'home/base.html' %}
 {% load jalali_tags %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 
 {% block title %}
-وبلاگ
+{% translate "blog" %}
 {% endblock title %}
 
 {% block content %}
@@ -10,7 +12,11 @@
         <h2>
             <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
         </h2>
-        {{ post.updated |to_jalali }} <br>
+        {% if LANGUAGE_CODE == 'fa' %}
+            {{ post.updated |to_jalali }} <br>
+        {% else %}
+            {{ post.updated }} <br>
+        {% endif %}
         {% autoescape off %}
         {{ post.content }}
         {% endautoescape %}

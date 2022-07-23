@@ -5,16 +5,18 @@ from django.utils.text import slugify
 from django.utils.html import format_html
 from jalali_date import datetime2jalali
 from image_optimizer.fields import OptimizedImageField
-
+from translated_fields import TranslatedField
+from django.utils.translation import gettext_lazy as _
+ 
 class Tag(models.Model):
-    name = models.CharField(max_length=50, verbose_name='عنوان')
-    slug = models.SlugField(max_length=250, unique=True, allow_unicode=True, blank=True, verbose_name='لینک')
+    name = TranslatedField(models.CharField(max_length=50, verbose_name=_('name')), )
+    slug = models.SlugField(max_length=250, unique=True, allow_unicode=True, blank=True, verbose_name=_('link'))
     created = models.DateTimeField(auto_now_add=timezone.now)
     updated = models.DateTimeField(auto_now=timezone.now)
 
     class Meta:
-        verbose_name = 'تگ'
-        verbose_name_plural = 'تگ ها'
+        verbose_name = _('tag')
+        verbose_name_plural = _('tags')
         ordering = ['-updated']
 
     def __str__(self):
@@ -23,24 +25,24 @@ class Tag(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(
-                self.name,
+                self.name_en,
                 allow_unicode=True,
             )
         super(Tag, self).save(*args, **kwargs)
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=250, verbose_name='عنوان')
-    slug = models.SlugField(max_length=250, unique=True, allow_unicode=True, blank=True, verbose_name='لینک')
-    content = models.TextField(verbose_name='محتوا')
-    tags = models.ManyToManyField(Tag, blank=True, verbose_name='تگ ها')
-    is_active = models.BooleanField(default=True, verbose_name='فعال')
+    title = TranslatedField(models.CharField(max_length=250, verbose_name=_('title')),)
+    slug = models.SlugField(max_length=250, unique=True, allow_unicode=True, blank=True, verbose_name=_('link'))
+    content = TranslatedField(models.TextField(verbose_name=_('content')),)
+    tags = models.ManyToManyField(Tag, blank=True, verbose_name=_('tags'))
+    is_active = models.BooleanField(default=True, verbose_name=_('active'))
     created = models.DateTimeField(auto_now_add=timezone.now)
     updated = models.DateTimeField(auto_now=timezone.now)
 
     class Meta:
-        verbose_name = 'پست'
-        verbose_name_plural = 'پست ها'
+        verbose_name = _('post')
+        verbose_name_plural = _('posts')
         ordering = ['-updated']
 
     def __str__(self):
@@ -50,7 +52,7 @@ class Post(models.Model):
         salt = datetime2jalali(self.updated)
         if not self.slug:
             self.slug = slugify(
-                self.title,
+                self.title_en,
                 allow_unicode=True,
             )
         super(Post, self).save(*args, **kwargs)
@@ -69,20 +71,20 @@ class Post(models.Model):
             img_url = '#'
         return format_html("<img src='{}' width='120px' style='border-radius:7px'>".format(img_url))
 
-    admin_thumbnail.short_description = 'تصویر'
+    admin_thumbnail.short_description = _('image')
     
 # Image model
 class Image(models.Model):
-    name = models.CharField(max_length=255, blank=True, verbose_name='نام و توضیحات')
-    image = OptimizedImageField(upload_to='blog/images/', verbose_name='انتخاب فایل')
-    default = models.BooleanField(default=False, verbose_name='انتخاب به عنوان پیشفرض')
-    target = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images', verbose_name='انتخاب مقصد')
+    name = models.CharField(max_length=255, blank=True, verbose_name=_('name or discription'))
+    image = OptimizedImageField(upload_to='blog/images/', verbose_name=_('select file'))
+    default = models.BooleanField(default=False, verbose_name=_('default'))
+    target = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='images', verbose_name=_('target'))
     created = models.DateTimeField(auto_now_add=timezone.now)
     updated = models.DateTimeField(auto_now=timezone.now)
 
     class Meta:
-        verbose_name = 'تصویر'
-        verbose_name_plural = 'تصاویر'
+        verbose_name = _('image')
+        verbose_name_plural = _('images')
 
     def __str__(self):
         return self.name
@@ -90,36 +92,36 @@ class Image(models.Model):
     def admin_thumbnail(self):
         return format_html("<img src='{}' width='120px' height='100px' style='border-radius:7px'>".format(self.image.url))
 
-    admin_thumbnail.short_description = 'تصویر'
+    admin_thumbnail.short_description = _('image')
 
 # Video model
 class Video(models.Model):
-    name = models.CharField(max_length=255, blank=True, verbose_name='نام و توضیحات')
-    video = models.FileField(upload_to='blog/videos/', verbose_name='انتخاب فایل')
-    default = models.BooleanField(default=False, verbose_name='انتخاب به عنوان پیشفرض')
-    target = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='videos', verbose_name='انتخاب مقصد')
+    name = models.CharField(max_length=255, blank=True, verbose_name=_('name or discription'))
+    video = models.FileField(upload_to='blog/videos/', verbose_name=_('select file'))
+    default = models.BooleanField(default=False, verbose_name=_('default'))
+    target = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='videos', verbose_name=_('target'))
     created = models.DateTimeField(auto_now_add=timezone.now)
     updated = models.DateTimeField(auto_now=timezone.now)
 
     class Meta:
-        verbose_name = 'ویدیو'
-        verbose_name_plural = 'ویدیو ها'
+        verbose_name = _('video')
+        verbose_name_plural = _('videos')
 
     def __str__(self):
         return self.name
 
 # File model
 class File(models.Model):
-    name = models.CharField(max_length=255, blank=True, verbose_name='نام و توضیحات')
-    item = models.FileField(upload_to='blog/files/', verbose_name='انتخاب فایل')
-    default = models.BooleanField(default=False, verbose_name='انتخاب به عنوان پیشفرض')
-    target = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='files', verbose_name='انتخاب مقصد')
+    name = models.CharField(max_length=255, blank=True, verbose_name=_('name or discription'))
+    item = models.FileField(upload_to='blog/files/', verbose_name=_('select file'))
+    default = models.BooleanField(default=False, verbose_name=_('default'))
+    target = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='files', verbose_name=_('target'))
     created = models.DateTimeField(auto_now_add=timezone.now)
     updated = models.DateTimeField(auto_now=timezone.now)
 
     class Meta:
-        verbose_name = 'فایل'
-        verbose_name_plural = 'فایل ها'
+        verbose_name = _('file')
+        verbose_name_plural = _('files')
 
     def __str__(self):
         return self.name

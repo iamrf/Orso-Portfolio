@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
-class LandingConfig(AppConfig):
+class HomeConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'landing'
-    verbose_name = _('landing')
+    name = 'home'
+    verbose_name = _('home')

@@ -1,0 +1,51 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html lang="fa" dir="rtl">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>
+            {% block title %}
+            {% translate "Orso" %}
+            {% endblock title %}
+        </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block styles %}
+            <link rel="stylesheet" href="{% static 'home/css/main.css' %}">
+            {% if LANGUAGE_CODE == 'fa' %}
+                <link rel="stylesheet" href="{% static 'home/css/rtl.css' %}">
+            {% endif %}
+        {% endblock styles %}
+    </head>
+    <body>
+        <div>
+            <a href="{% url 'chlang' %}?lang=en&next=/en/{{ request.path|slice:'4:' }}">{% translate "En" %}</a>
+            / 
+            <a href="{% url 'chlang' %}?lang=fa&next=/fa/{{ request.path|slice:'4:' }}">{% translate "Fa" %}</a>
+        </div><hr>
+        <a href="{% url 'home:home' %}"> {% translate "home" %} </a> |
+        <a href="{% url 'blog:index' %}"> {% translate "blog" %} </a> |
+        <a href="{% url 'portfolio:index' %}"> {% translate "portfolio" %} </a> |
+        <a href="{% url 'landing:index' %}"> {% translate "landings" %} </a>
+
+        <hr>
+        {% block content %}
+        {% endblock content %}
+        
+        {% block scripts %}
+            <script src="" async defer></script>
+        {% endblock scripts %}
+        <hr>
+        {{ LANGUAGE_CODE }}
+        <br>
+        {{ request.path }}
+    </body>
+</html>
